@@ -1,47 +1,47 @@
 export default class Store {
-  static getPostIts() {
-    let postIt
-    if (localStorage.getItem("postIts") === null) {
-      postIt = []
+  static get(collection) {
+    let data
+    if (localStorage.getItem(collection) === null) {
+      data = []
     } else {
-      postIt = JSON.parse(localStorage.getItem("postIts"))
+      data = JSON.parse(localStorage.getItem(collection))
     }
 
-    return postIt
+    return data
   }
 
-  static getPostItById(id) {
-    const postIts = Store.getPostIts()
+  static getById({ id, collection }) {
+    const data = Store.get(collection)
 
-    return postIts.find(postIt => postIt.id === id)
+    return data.find(d => d.id === id)
   }
 
-  static addPostIt(postIt) {
-    const postIts = Store.getPostIts()
+  static post({ dataToSave, collection }) {
+    const data = Store.get(collection)
 
-    postIts.push(postIt)
+    data.push(dataToSave)
 
-    localStorage.setItem("postIts", JSON.stringify(postIts))
+    localStorage.setItem(collection, JSON.stringify(data))
   }
 
-  static editPostIt(postIt) {
-    const postIts = Store.getPostIts()
-    const index = postIts.findIndex(note => note.id === postIt.id)
+  static edit({ dataToSave, collection }) {
+    const data = Store.get(collection)
+    const index = data.findIndex(note => note.id === dataToSave.id)
 
-    postIts.splice(index, 1, postIt)
+    data.splice(index, 1, dataToSave)
 
-    localStorage.setItem("postIts", JSON.stringify(postIts))
+    localStorage.setItem(collection, JSON.stringify(data))
   }
 
-  static deletePostIt(id) {
-    const postIts = Store.getPostIts()
+  static delete({ id, collection }) {
+    const data = Store.get(collection)
 
-    postIts.forEach((postIt, index) => {
-      if (postIt.id === id) {
-        postIts.splice(index, 1)
+    data.forEach((d, index) => {
+      if (d.id === id) {
+        data.splice(index, 1)
       }
     })
 
-    localStorage.setItem("postIts", JSON.stringify(postIts))
+    localStorage.setItem(collection, JSON.stringify(data))
   }
 }

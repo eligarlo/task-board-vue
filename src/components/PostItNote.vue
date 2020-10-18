@@ -31,7 +31,9 @@ export default {
 		note: Object,
 	},
 	data: () => {
-		return {}
+		return {
+			collection: "postIts",
+		}
 	},
 	methods: {
 		deletePostIt(id) {

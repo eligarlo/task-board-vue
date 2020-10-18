@@ -1,7 +1,12 @@
 <template>
-  <transition-group name="delete-post-it" tag="div" class="home">
-    <PostItNote v-for="note in notes" :key="note.id" :note="note" @delete-post-it="deletePostIt" />
-  </transition-group>
+	<transition-group name="delete-post-it" tag="div" class="home">
+		<PostItNote
+			v-for="note in notes"
+			:key="note.id"
+			:note="note"
+			@delete-post-it="deletePostIt"
+		/>
+	</transition-group>
 </template>
 
 <script>
@@ -16,15 +21,15 @@ export default {
 	},
 	data() {
 		return {
-			notes: Store.getPostIts()
+			notes: Store.get("postIts"),
 		}
-  },
-  methods: {
-    deletePostIt(id) {
-      Store.deletePostIt(id)
-      this.notes = Store.getPostIts()
-    }
-  }
+	},
+	methods: {
+		deletePostIt(id) {
+			Store.delete({ id, collection: "postIts" })
+			this.notes = Store.get("postIts")
+		},
+	},
 }
 </script>
 

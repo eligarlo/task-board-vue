@@ -125,6 +125,7 @@ import PostIt from "@/utils/PostIt"
 export default {
 	data() {
 		return {
+			collection: "postIts",
 			valid: true,
 			id: 0,
 			title: {
@@ -172,10 +173,10 @@ export default {
 
 				if (this.$route.params.id === undefined) {
 					// add post-it
-					Store.addPostIt(postIt)
+					Store.post({ dataToSave: postIt, collection: this.collection })
 				} else {
 					// edit post-it
-					Store.editPostIt(postIt)
+					Store.edit({ dataToSave: postIt, collection: this.collection })
 				}
 
 				// redirect to homepage
@@ -193,7 +194,11 @@ export default {
 	beforeMount() {
 		if (this.$route.params.id === undefined) return
 
-		const editPostIt = Store.getPostItById(this.$route.params.id)
+		const editPostIt = Store.getById({
+			id: this.$route.params.id,
+			collection: this.collection,
+		})
+
 		if (editPostIt !== undefined) {
 			this.id = editPostIt.id
 			this.title.title = editPostIt.title

@@ -10,10 +10,25 @@ export default class Store {
     return postIt
   }
 
+  static getPostItById(id) {
+    const postIts = Store.getPostIts()
+
+    return postIts.find(postIt => postIt.id === id)
+  }
+
   static addPostIt(postIt) {
     const postIts = Store.getPostIts()
 
     postIts.push(postIt)
+
+    localStorage.setItem("postIts", JSON.stringify(postIts))
+  }
+
+  static editPostIt(postIt) {
+    const postIts = Store.getPostIts()
+    const index = postIts.findIndex(note => note.id === postIt.id)
+
+    postIts.splice(index, 1, postIt)
 
     localStorage.setItem("postIts", JSON.stringify(postIts))
   }

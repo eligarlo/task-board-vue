@@ -1,0 +1,55 @@
+.post-it {
+  margin: 1rem;
+  width: 200px;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 250px;
+    filter: drop-shadow(5px 6px 2px rgba(0, 0, 0, 0.4));
+  }
+
+  nav {
+    position: absolute;
+    top: 10px;
+    right: 0;
+
+    &.date {
+      width: 100%;
+    }
+
+    h5 {
+      display: inline-block;
+      margin-right: 50px;
+    }
+  }
+
+  article {
+    position: absolute;
+    top: 45px;
+    overflow: auto;
+    max-height: 77%;
+
+    /* width */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px grey;
+      border-radius: 5px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #3f51b5;
+      border-radius: 5px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #283374;
+    }
+  }
+}
